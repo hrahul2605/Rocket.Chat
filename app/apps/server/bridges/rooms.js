@@ -2,7 +2,7 @@ import { RoomType } from '@rocket.chat/apps-engine/definition/rooms';
 import { Meteor } from 'meteor/meteor';
 
 import { addUserToRoom } from '../../../lib/server/functions/addUserToRoom';
-import { Rooms, Subscriptions, Users } from '../../../models/server';
+import { Rooms, Subscriptions, Users } from '../../../../server/models';
 
 export class AppRoomBridge {
 	constructor(orch) {

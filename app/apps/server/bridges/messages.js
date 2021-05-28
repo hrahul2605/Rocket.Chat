@@ -1,4 +1,4 @@
-import { Messages, Users, Subscriptions } from '../../../models/server';
+import { Messages, Users, Subscriptions } from '../../../../server/models';
 import { updateMessage } from '../../../lib/server/functions/updateMessage';
 import { executeSendMessage } from '../../../lib/server/methods/sendMessage';
 import { api } from '../../../../server/sdk/api';
