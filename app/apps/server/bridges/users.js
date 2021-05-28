@@ -2,7 +2,7 @@ import { Random } from 'meteor/random';
 
 import { setUserAvatar, checkUsernameAvailability, deleteUser, _setStatusTextPromise } from '../../../lib/server/functions';
 import { Users } from '../../../../server/models';
-import { Users as UsersRaw } from '../../../models/server/raw';
+import { Users as UsersRaw } from '../../../../server/models/raw';
 
 export class AppUserBridge {
 	constructor(orch) {

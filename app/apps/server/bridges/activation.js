@@ -1,4 +1,4 @@
-import { Users } from '../../../models/server/raw';
+import { Users } from '../../../../server/models/raw';
 
 export class AppActivationBridge {
 	constructor(orch) {

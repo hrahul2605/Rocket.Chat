@@ -2,10 +2,10 @@ import { Random } from 'meteor/random';
 
 import { getRoom } from '../../../livechat/server/api/lib/livechat';
 import { Livechat } from '../../../livechat/server/lib/Livechat';
-import LivechatRooms from '../../../models/server/models/LivechatRooms';
-import LivechatVisitors from '../../../models/server/models/LivechatVisitors';
-import LivechatDepartment from '../../../models/server/models/LivechatDepartment';
-import Users from '../../../models/server/models/Users';
+import LivechatRooms from '../../../../server/models/models/LivechatRooms';
+import LivechatVisitors from '../../../../server/models/models/LivechatVisitors';
+import LivechatDepartment from '../../../../server/models/models/LivechatDepartment';
+import Users from '../../../../server/models/models/Users';
 
 export class AppLivechatBridge {
 	constructor(orch) {
