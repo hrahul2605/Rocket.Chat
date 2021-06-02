@@ -1,3 +1,4 @@
+import { BrowserPolicy } from 'meteor/browser-policy';
 import { Meteor } from 'meteor/meteor';
 import { Inject } from 'meteor/meteorhacks:inject-initial';
 import { ReactiveDict } from 'meteor/reactive-dict';
@@ -5,8 +6,14 @@ import { Tracker } from 'meteor/tracker';
 import _ from 'underscore';
 import { escapeHTML } from '@rocket.chat/string-helpers';
 
+
 import { Settings } from '../../models';
 import { settings } from '../../settings/server';
+
+BrowserPolicy.content.allowImageOrigin('*');
+BrowserPolicy.content.disallowInlineScripts();
+BrowserPolicy.content.allowFontDataUrl();
+BrowserPolicy.content.allowInlineStyles();
 
 const headInjections = new ReactiveDict();
 
@@ -48,19 +55,9 @@ Meteor.startup(() => {
 			body, body * {
 				animation: none !important;
 			}
-		</style>
-		<script>
-			window.DISABLE_ANIMATION = true;
-		</script>
-		`);
+			</style>
+			`);
 	}
-
-	settings.get('API_Use_REST_For_DDP_Calls', (key, value) => {
-		if (!value) {
-			return injectIntoHead(key, '');
-		}
-		injectIntoHead(key, '<script>window.USE_REST_FOR_DDP_CALLS = true;</script>');
-	});
 
 	settings.get('Assets_SvgFavicon_Enable', (key, value) => {
 		const standardFavicons = `
@@ -177,26 +174,3 @@ injectIntoBody('react-root', `
 `);
 
 injectIntoBody('icons', Assets.getText('public/icons.svg'));
-
-settings.get('Accounts_ForgetUserSessionOnWindowClose', (key, value) => {
-	if (value) {
-		Inject.rawModHtml(key, (html) => {
-			const script = `
-<script>
-	window.addEventListener('load', function() {
-		if (window.localStorage) {
-			Object.keys(window.localStorage).forEach(function(key) {
-				window.sessionStorage.setItem(key, window.localStorage.getItem(key));
-			});
-			window.localStorage.clear();
-			Meteor._localStorage = window.sessionStorage;
-		}
-	});
-</script>
-			`;
-			return html + script;
-		});
-	} else {
-		Inject.rawModHtml(key, (html) => html);
-	}
-});
